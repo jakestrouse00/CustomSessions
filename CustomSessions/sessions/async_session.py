@@ -17,8 +17,8 @@ try:
     from models import SessionMetaData
     from exceptions import RetriesExceeded
 except ImportError:
-    from .models import SessionMetaData
-    from .exceptions import RetriesExceeded
+    from ..models import SessionMetaData
+    from ..exceptions import RetriesExceeded
 
 
 @dataclass
