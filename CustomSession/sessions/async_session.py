@@ -73,7 +73,7 @@ class AsyncSession(AsyncClient):
                   cookies: Optional[CookieTypes] = None,
                   follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                   timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                  extensions: Optional[RequestExtensions] = None) -> httpxResponse | None:
+                  extensions: Optional[RequestExtensions] = None) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().get(url, params=params, cookies=cookies, follow_redirects=follow_redirects,
@@ -81,7 +81,7 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
 
     async def post(self, url: str, retries: int = 3, content: Optional[RequestContent] = None,
                    data: Optional[RequestData] = None,
@@ -92,7 +92,7 @@ class AsyncSession(AsyncClient):
                    cookies: Optional[CookieTypes] = None,
                    follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                    timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                   extensions: Optional[RequestExtensions] = None, *args, **kwargs) -> httpxResponse | None:
+                   extensions: Optional[RequestExtensions] = None, *args, **kwargs) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().post(url, content=content, data=data, files=files, json=json, params=params,
@@ -101,7 +101,7 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
 
     async def put(self, url: str, retries: int = 3, content: Optional[RequestContent] = None,
                   data: Optional[RequestData] = None,
@@ -113,7 +113,7 @@ class AsyncSession(AsyncClient):
                   auth: Union[AuthTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                   follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                   timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                  extensions: Optional[RequestExtensions] = None) -> httpxResponse | None:
+                  extensions: Optional[RequestExtensions] = None) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().put(url, content=content, data=data, files=files, json=json, params=params,
@@ -122,14 +122,14 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
 
     async def delete(self, url: str, retries: int = 3, params: Optional[QueryParamTypes] = None,
                      headers: Optional[HeaderTypes] = None,
                      cookies: Optional[CookieTypes] = None,
                      follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                      timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                     extensions: Optional[RequestExtensions] = None) -> httpxResponse | None:
+                     extensions: Optional[RequestExtensions] = None) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().delete(url, params=params, cookies=cookies,
@@ -138,7 +138,7 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
 
     async def patch(self, url: str, retries: int = 3, content: Optional[RequestContent] = None,
                     data: Optional[RequestData] = None,
@@ -149,7 +149,7 @@ class AsyncSession(AsyncClient):
                     cookies: Optional[CookieTypes] = None,
                     follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                     timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                    extensions: Optional[RequestExtensions] = None) -> httpxResponse | None:
+                    extensions: Optional[RequestExtensions] = None) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().patch(url, content=content, data=data, files=files, json=json, params=params,
@@ -158,14 +158,14 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
 
     async def head(self, url: str, retries: int = 3, params: Optional[QueryParamTypes] = None,
                    headers: Optional[HeaderTypes] = None,
                    cookies: Optional[CookieTypes] = None,
                    follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                    timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                   extensions: Optional[RequestExtensions] = None) -> httpxResponse | None:
+                   extensions: Optional[RequestExtensions] = None) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().head(url, params=params, cookies=cookies,
@@ -174,14 +174,14 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
 
     async def options(self, url: str, retries: int = 3, params: Optional[QueryParamTypes] = None,
                       headers: Optional[HeaderTypes] = None,
                       cookies: Optional[CookieTypes] = None,
                       follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                       timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
-                      extensions: Optional[RequestExtensions] = None) -> httpxResponse | None:
+                      extensions: Optional[RequestExtensions] = None) -> httpxResponse:
         for _ in range(retries):
             try:
                 r = await super().options(url, params=params, cookies=cookies,
@@ -190,4 +190,4 @@ class AsyncSession(AsyncClient):
                 return r
             except self.ignore_exceptions:
                 pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times")
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
