@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 _tests.py
-*.sh
+build.sh
