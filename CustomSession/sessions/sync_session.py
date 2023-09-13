@@ -36,6 +36,17 @@ class SyncSession(Session):
             self.meta_data = SessionMetaData(self.meta_data)
 
     def get(self, url, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP GET request with optional retries.
+
+                :param url: The URL to send the GET request to.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying GET request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
@@ -46,6 +57,19 @@ class SyncSession(Session):
         raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def post(self, url, data: dict = None, json: dict = None, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP POST request with optional retries.
+
+                :param url: The URL to send the POST request to.
+                :param data: The data to include in the request body as form data.
+                :param json: The JSON data to include in the request body.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying POST request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
@@ -56,6 +80,18 @@ class SyncSession(Session):
         raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def put(self, url, data: dict = None, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP PUT request with optional retries.
+
+                :param url: The URL to send the PUT request to.
+                :param data: The data to include in the request body as form data.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying PUT request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
@@ -66,6 +102,17 @@ class SyncSession(Session):
         raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def delete(self, url, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP DELETE request with optional retries.
+
+                :param url: The URL to send the DELETE request to.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying DELETE request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
@@ -76,6 +123,18 @@ class SyncSession(Session):
         raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def patch(self, url, data: dict = None, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP PATCH request with optional retries.
+
+                :param url: The URL to send the PATCH request to.
+                :param data: The data to include in the request body as form data.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying PATCH request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
@@ -86,6 +145,17 @@ class SyncSession(Session):
         raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def head(self, url, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP HEAD request with optional retries.
+
+                :param url: The URL to send the HEAD request to.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying HEAD request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
@@ -96,6 +166,17 @@ class SyncSession(Session):
         raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def options(self, url, retries: int = 3, **kwargs) -> Response:
+        """
+                Send an HTTP OPTIONS request with optional retries.
+
+                :param url: The URL to send the OPTIONS request to.
+                :param retries: The number of times to retry the request in case of exceptions.
+                :param **kwargs: Additional keyword arguments passed to the underlying OPTIONS request.
+
+                :return: The HTTP response object.
+
+                :raises RetriesExceeded: If the maximum number of retries is exceeded.
+                """
         ignored_exceptions = []
         for _ in range(retries):
             try:
