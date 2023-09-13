@@ -36,65 +36,72 @@ class SyncSession(Session):
             self.meta_data = SessionMetaData(self.meta_data)
 
     def get(self, url, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().get(url, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def post(self, url, data: dict = None, json: dict = None, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().post(url, data=data, json=json, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def put(self, url, data: dict = None, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().put(url, data=data, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def delete(self, url, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().delete(url, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def patch(self, url, data: dict = None, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().patch(url, data=data, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def head(self, url, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().head(url, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     def options(self, url, retries: int = 3, **kwargs) -> Response:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = super().options(url, **kwargs)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 

@@ -74,14 +74,15 @@ class AsyncSession(AsyncClient):
                   follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                   timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                   extensions: Optional[RequestExtensions] = None) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().get(url, params=params, cookies=cookies, follow_redirects=follow_redirects,
                                       timeout=timeout, extensions=extensions, headers=headers)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     async def post(self, url: str, retries: int = 3, content: Optional[RequestContent] = None,
                    data: Optional[RequestData] = None,
@@ -93,15 +94,16 @@ class AsyncSession(AsyncClient):
                    follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                    timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                    extensions: Optional[RequestExtensions] = None, *args, **kwargs) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().post(url, content=content, data=data, files=files, json=json, params=params,
                                        headers=headers, cookies=cookies, follow_redirects=follow_redirects,
                                        timeout=timeout, extensions=extensions)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     async def put(self, url: str, retries: int = 3, content: Optional[RequestContent] = None,
                   data: Optional[RequestData] = None,
@@ -114,15 +116,16 @@ class AsyncSession(AsyncClient):
                   follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                   timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                   extensions: Optional[RequestExtensions] = None) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().put(url, content=content, data=data, files=files, json=json, params=params,
                                       headers=headers, cookies=cookies, auth=auth, follow_redirects=follow_redirects,
                                       timeout=timeout, extensions=extensions)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     async def delete(self, url: str, retries: int = 3, params: Optional[QueryParamTypes] = None,
                      headers: Optional[HeaderTypes] = None,
@@ -130,15 +133,16 @@ class AsyncSession(AsyncClient):
                      follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                      timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                      extensions: Optional[RequestExtensions] = None) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().delete(url, params=params, cookies=cookies,
                                          follow_redirects=follow_redirects,
                                          timeout=timeout, extensions=extensions, headers=headers)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     async def patch(self, url: str, retries: int = 3, content: Optional[RequestContent] = None,
                     data: Optional[RequestData] = None,
@@ -150,15 +154,16 @@ class AsyncSession(AsyncClient):
                     follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                     timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                     extensions: Optional[RequestExtensions] = None) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().patch(url, content=content, data=data, files=files, json=json, params=params,
                                         headers=headers, cookies=cookies,
                                         follow_redirects=follow_redirects, timeout=timeout, extensions=extensions)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     async def head(self, url: str, retries: int = 3, params: Optional[QueryParamTypes] = None,
                    headers: Optional[HeaderTypes] = None,
@@ -166,15 +171,16 @@ class AsyncSession(AsyncClient):
                    follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                    timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                    extensions: Optional[RequestExtensions] = None) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().head(url, params=params, cookies=cookies,
                                        follow_redirects=follow_redirects,
                                        timeout=timeout, extensions=extensions, headers=headers)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
 
     async def options(self, url: str, retries: int = 3, params: Optional[QueryParamTypes] = None,
                       headers: Optional[HeaderTypes] = None,
@@ -182,12 +188,13 @@ class AsyncSession(AsyncClient):
                       follow_redirects: Union[bool, UseClientDefault] = USE_CLIENT_DEFAULT,
                       timeout: Union[TimeoutTypes, UseClientDefault] = USE_CLIENT_DEFAULT,
                       extensions: Optional[RequestExtensions] = None) -> httpxResponse:
+        ignored_exceptions = []
         for _ in range(retries):
             try:
                 r = await super().options(url, params=params, cookies=cookies,
                                           follow_redirects=follow_redirects,
                                           timeout=timeout, extensions=extensions, headers=headers)
                 return r
-            except self.ignore_exceptions:
-                pass
-        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries)
+            except self.ignore_exceptions as e:
+                ignored_exceptions.append(e)
+        raise RetriesExceeded(f"Failed request {retries}/{retries} times", retries, ignored_exceptions)
