@@ -30,6 +30,11 @@ class SyncSession(Session):
     meta_data: SessionMetaData | dict = field(default_factory=SessionMetaData)
 
     def __post_init__(self):
+        """
+        Initialize the SyncSession object after the parent class is initialized.
+
+        This method sets the user-agent header, proxies, and converts the meta_data to SessionMetaData if needed.
+        """
         super().__init__()
         self.headers["user-agent"] = self.user_agent.text
         if self.proxy is None:
